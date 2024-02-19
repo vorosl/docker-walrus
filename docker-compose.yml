@@ -1,0 +1,49 @@
+services:
+  arm32:
+    image: arm32
+    environment:
+      MODE: $MODE
+      COMPILE_ANYWAY: $COMPILE_ANYWAY
+      USER_ID: ${USER_ID:-1000}
+      GROUP_ID: ${GROUP_ID:-1000}
+    volumes:
+      - $VOLUME_WALRUS:/walrus
+    build:
+      context: arm32
+  arm64:
+    image: arm64
+    environment:
+      MODE: $MODE
+      COMPILE_ANYWAY: $COMPILE_ANYWAY
+      USER_ID: ${USER_ID:-1000}
+      GROUP_ID: ${GROUP_ID:-1000}
+    volumes:
+      - $VOLUME_WALRUS:/walrus
+    build:
+      context: arm64
+  
+  x86:
+    image: x86
+    environment:
+      ARCH: x86
+      MODE: $MODE
+      COMPILE_ANYWAY: $COMPILE_ANYWAY
+      USER_ID: ${USER_ID:-1000}
+      GROUP_ID: ${GROUP_ID:-1000}
+    volumes:
+      - $VOLUME_WALRUS:/walrus
+    build:
+      context: x64_x86
+    
+  x64:
+    image: x64
+    environment:
+      ARCH: x64
+      MODE: $MODE
+      COMPILE_ANYWAY: $COMPILE_ANYWAY
+      USER_ID: ${USER_ID:-1000}
+      GROUP_ID: ${GROUP_ID:-1000}
+    volumes:
+      - $VOLUME_WALRUS:/walrus
+    build:
+      context: x64_x86
