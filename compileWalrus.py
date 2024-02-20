@@ -28,7 +28,6 @@ def parse_args():
     parser.add_argument(
         "-c", "--compile-anyway", help="Compile anyway (delete build folder)", action="store_true", default=False)
     
-    parser.add_argument("-e", "--shell", help="Shell", action="store_true", default=False )
     args = parser.parse_args()
 
     return args
@@ -52,15 +51,10 @@ if __name__ == "__main__":
 
     if args.setup:
         subprocess.run(["docker", "compose", "build"] + (['--no-cache'] if args.no_cache else []), env=env)
-    
-    elif args.shell:
-        subprocess.run(["docker", "compose", "exec", "x64" if args.arch == "all" else args.arch, "/bin/sh"], env=env)
+
     else: 
         if args.arch=="all":
-
-            for arch in architectures:
-                subprocess.run(["docker", "compose", "up"] + (["--no-log-prefix"] if args.no_log_prefix else []) + [arch], env=env)
-            
+            subprocess.run(["docker", "compose", "up"] + (["--no-log-prefix"] if args.no_log_prefix else []), env=env)
             exit()
         
         subprocess.run(["docker", "compose", "up"] + (["--no-log-prefix"] if args.no_log_prefix else []) + [args.arch], env=env)
