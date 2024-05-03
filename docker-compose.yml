@@ -6,6 +6,8 @@ services:
       COMPILE_ANYWAY: $COMPILE_ANYWAY
       USER_ID: ${USER_ID:-1000}
       GROUP_ID: ${GROUP_ID:-1000}
+      PERF: $PERF
+      OUTPUT: $OUTPUT
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:
@@ -17,11 +19,13 @@ services:
       COMPILE_ANYWAY: $COMPILE_ANYWAY
       USER_ID: ${USER_ID:-1000}
       GROUP_ID: ${GROUP_ID:-1000}
+      PERF: $PERF
+      OUTPUT: $OUTPUT
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:
       context: arm64
-  
+
   x86:
     image: x86
     environment:
@@ -30,11 +34,13 @@ services:
       COMPILE_ANYWAY: $COMPILE_ANYWAY
       USER_ID: ${USER_ID:-1000}
       GROUP_ID: ${GROUP_ID:-1000}
+      PERF: $PERF
+      OUTPUT: $OUTPUT
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:
       context: x64_x86
-    
+
   x64:
     image: x64
     environment:
@@ -43,6 +49,8 @@ services:
       COMPILE_ANYWAY: $COMPILE_ANYWAY
       USER_ID: ${USER_ID:-1000}
       GROUP_ID: ${GROUP_ID:-1000}
+      PERF: $PERF
+      OUTPUT: $OUTPUT
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:

@@ -28,6 +28,11 @@ def parse_args():
     parser.add_argument(
         "-c", "--compile-anyway", help="Compile anyway (delete build folder)", action="store_true", default=False)
     
+    parser.add_argument(
+        "-p", "--perf", help="Build with Perftool compatibility", action="store_true", default=False)
+
+    parser.add_argument('-o', '--output', help="WALRUS_OUTPUT", choices=["static_lib", "shared_lib", "shell", "api_test"], default="shell")
+
     args = parser.parse_args()
 
     return args
@@ -45,9 +50,14 @@ if __name__ == "__main__":
 
     env["COMPILE_ANYWAY"] = '1' if args.compile_anyway else '0'
 
+
     env["USER_ID"] = str(int(subprocess.check_output(["id", "--user"])))
 
     env["GROUP_ID"] = str(int(subprocess.check_output(["id", "--group"])))
+
+    env["PERF"] = '1' if args.perf else '0'
+
+    env["OUTPUT"] = args.output
 
     if args.setup:
         subprocess.run(["docker", "compose", "build"] + (['--no-cache'] if args.no_cache else []), env=env)

@@ -11,7 +11,12 @@ CXX=arm-linux-gnueabihf-g++
 
 chown -R 0:0 out/arm/$MODE
 
-cmake -H. -DCMAKE_EXE_LINKER_FLAGS="-static" -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=shell -GNinja
+if [ "$PERF" == "1" ]; then
+    cmake -DWALRUS_JITPERF=1 -H. -DCMAKE_EXE_LINKER_FLAGS="-static" -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja
+else
+    cmake -H. -DCMAKE_EXE_LINKER_FLAGS="-static" -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja
+fi
+
 
 chown -R ${USER_ID}:${GROUP_ID} out/arm/$MODE
 
