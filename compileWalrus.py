@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-architectures = ["arm32", "arm64", "x64", "x86"]
+architectures = ["arm32", "arm64", "x64", "x86", "thumb2"]
 
 import subprocess, os
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
@@ -33,6 +33,8 @@ def parse_args():
 
     parser.add_argument('-o', '--output', help="WALRUS_OUTPUT", choices=["static_lib", "shared_lib", "shell", "api_test"], default="shell")
 
+    parser.add_argument('-t', '--static-link', help="Static linking", action="store_true", default=False)
+
     args = parser.parse_args()
 
     return args
@@ -50,6 +52,7 @@ if __name__ == "__main__":
 
     env["COMPILE_ANYWAY"] = '1' if args.compile_anyway else '0'
 
+    env["STATIC_LINKING"] = '1' if args.static_link else '0'
 
     env["USER_ID"] = str(int(subprocess.check_output(["id", "--user"])))
 

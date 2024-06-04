@@ -8,6 +8,7 @@ services:
       GROUP_ID: ${GROUP_ID:-1000}
       PERF: $PERF
       OUTPUT: $OUTPUT
+      STATIC_LINKING: $STATIC_LINKING
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:
@@ -21,10 +22,26 @@ services:
       GROUP_ID: ${GROUP_ID:-1000}
       PERF: $PERF
       OUTPUT: $OUTPUT
+      STATIC_LINKING: $STATIC_LINKING
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:
       context: arm64
+  
+  thumb2:
+    image: thumb2
+    environment:
+      MODE: $MODE
+      COMPILE_ANYWAY: $COMPILE_ANYWAY
+      USER_ID: ${USER_ID:-1000}
+      GROUP_ID: ${GROUP_ID:-1000}
+      PERF: $PERF
+      OUTPUT: $OUTPUT
+      STATIC_LINKING: $STATIC_LINKING
+    volumes:
+      - $VOLUME_WALRUS:/walrus
+    build:
+      context: thumb2
 
   x86:
     image: x86
@@ -36,6 +53,7 @@ services:
       GROUP_ID: ${GROUP_ID:-1000}
       PERF: $PERF
       OUTPUT: $OUTPUT
+      STATIC_LINKING: $STATIC_LINKING
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:
@@ -51,6 +69,7 @@ services:
       GROUP_ID: ${GROUP_ID:-1000}
       PERF: $PERF
       OUTPUT: $OUTPUT
+      STATIC_LINKING: $STATIC_LINKING
     volumes:
       - $VOLUME_WALRUS:/walrus
     build:

@@ -9,6 +9,10 @@ fi
 CC=aarch64-linux-gnu-gcc
 CXX=aarch64-linux-gnu-g++
 
+if ["$STATIC_LINKING" == '1']; then
+    LDFLAGS="-static"
+fi
+
 chown -R 0:0 out/aarch64/$MODE
 if [ "$PERF" == "1" ]; then
     cmake -DWALRUS_JITPERF=1 -H. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON  -Bout/aarch64/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=aarch64 -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja

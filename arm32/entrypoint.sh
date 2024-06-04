@@ -9,12 +9,17 @@ fi
 CC=arm-linux-gnueabihf-gcc
 CXX=arm-linux-gnueabihf-g++
 
+
+if ["$STATIC_LINKING" == '1']; then
+    LDFLAGS="-static"
+fi
+
 chown -R 0:0 out/arm/$MODE
 
 if [ "$PERF" == "1" ]; then
-    cmake -DWALRUS_JITPERF=1 -H. -DCMAKE_EXE_LINKER_FLAGS="-static" -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja
+    cmake -DWALRUS_JITPERF=1 -H. -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja
 else
-    cmake -H. -DCMAKE_EXE_LINKER_FLAGS="-static" -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja
+    cmake -H. -Bout/arm/$MODE/ -DCMAKE_BUILD_TYPE=$MODE -DWALRUS_ARCH=arm -DWALRUS_HOST=linux -DWALRUS_MODE=$MODE -DWALRUS_OUTPUT=$OUTPUT -GNinja
 fi
 
 

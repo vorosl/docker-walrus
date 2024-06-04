@@ -9,6 +9,10 @@ fi
 CC=gcc
 CXX=g++
 
+if ["$STATIC_LINKING" == '1']; then
+    LDFLAGS="-static"
+fi
+
 chown -R 0:0 out/$ARCH/$MODE
 
 if [ "$PERF" == "1" ]; then
